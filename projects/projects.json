@@ -1,0 +1,81 @@
+[
+  {
+    "id": "safest-app",
+    "title": "SAFEST Mobile App",
+    "shortDesc": "Award-winning safety app for women with secure back-end systems.",
+    "emoji": "🛡️",
+    "thumbnail": "",
+    "longDesc": "Led as Team Leader in PKM-KC national competition, spearheading development of SAFEST — a mobile security solution for women. Integrated secure back-end systems with intuitive front-end interfaces. Won Gold Award at CSIT-UPM International iFYP Exhibition & Competition 2026.",
+    "tags": ["Flutter", "Dart", "Mobile", "Security"],
+    "github": "https://github.com/alizzati/SAFEST",
+    "demo": "#",
+    "category": "Mobile App",
+    "images": []
+  },
+  {
+    "id": "image-encryption",
+    "title": "Image Encryption Website",
+    "shortDesc": "Web app for encrypting and decrypting images using cryptography algorithms.",
+    "emoji": "🔐",
+    "thumbnail": "",
+    "longDesc": "A cryptography-focused web application that allows users to encrypt and decrypt images. Built with PHP and JavaScript, demonstrating understanding of cryptographic principles and secure data handling.",
+    "tags": ["PHP", "JavaScript", "Cryptography", "Web"],
+    "github": "https://github.com/alizzati/cryptography",
+    "demo": "#",
+    "category": "Web App",
+    "images": []
+  },
+  {
+    "id": "temu-usaha",
+    "title": "TemuUsaha UI/UX",
+    "shortDesc": "AI-driven platform UI/UX for micro-entrepreneur work recommendations.",
+    "emoji": "🎨",
+    "thumbnail": "",
+    "longDesc": "Led end-to-end UI/UX design for TemuUsaha, an AI-driven platform empowering micro-entrepreneurs. Designed complex user journeys, high-fidelity prototypes, and smart analytics dashboards. Submitted for GEMASTIK — National Student Competition in ICT (UI/UX category).",
+    "tags": ["Figma", "UI/UX", "AI", "Prototyping"],
+    "github": "#",
+    "demo": "https://s.id/FigmaTemu-usaha",
+    "category": "Design",
+    "images": []
+  },
+  {
+    "id": "text-summarizer",
+    "title": "Text Summarizer R",
+    "shortDesc": "Research comparing LexRank and LSA extractive summarization algorithms.",
+    "emoji": "🔬",
+    "thumbnail": "",
+    "longDesc": "Research project comparing extractive summarization algorithms: LexRank and Latent Semantic Analysis (LSA). Evaluated accuracy using Jaccard Similarity and ROUGE score metrics. Implemented and tested in R using RStudio.",
+    "tags": ["R", "NLP", "RStudio", "Research"],
+    "github": "https://github.com/alizzati",
+    "demo": "#",
+    "category": "Research",
+    "images": []
+  },
+  {
+    "id": "more-coming",
+    "title": "More Projects Soon",
+    "shortDesc": "Additional projects are being added. Stay tuned!",
+    "emoji": "💡",
+    "thumbnail": "",
+    "longDesc": "More projects including game development with Godot, Android apps with Kotlin, and web projects are being documented and will be added soon.",
+    "tags": ["Godot", "Kotlin", "Coming Soon"],
+    "github": "#",
+    "demo": "#",
+    "category": "Coming Soon",
+    "images": []
+  },
+  {
+    "id": "text-summarizer",
+    "title": "Text Summarizer R",
+    "shortDesc": "Comparing LexRank and LSA in R.",
+    "thumbnail": "/assets/img/r-project.png",
+    "longDesc": "Projek riset yang membandingkan algoritma ekstraktif seperti LexRank dan Latent Semantic Analysis (LSA). Menggunakan metrik Jaccard Similarity dan ROUGE score untuk evaluasi akurasi.",
+    "tags": ["R", "NLP", "RStudio"],
+    "github": "https://github.com/alizzati/summarizer-r",
+    "demo": "#",
+    "category": "Web App",
+    "images": [
+      "/assets/img/r-project.png"
+    ]
+  }
+]
