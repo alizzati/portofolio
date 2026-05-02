@@ -92,7 +92,7 @@ let projectData = []; // Simpan data di sini agar bisa diakses saat kartu diklik
 async function loadProjects() {
   let data = [];
   try {
-    const response = await fetch('/projects/projects.json');
+    const response = await fetch('../projects/projects.json');
     data = await response.json();
   } catch(e) {
     // Use fallback demo data if json not available
