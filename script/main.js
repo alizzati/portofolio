@@ -16,6 +16,7 @@ window.addEventListener('scroll', () => {
   navEl.classList.toggle('scrolled', window.scrollY > 20);
 }, { passive: true });
 
+/* ---- ROLE CYCLING ---- */
 const roles = [
   'Full-Stack Developer',
   'Mobile App Developer',
@@ -158,7 +159,6 @@ function showProjectDetail(id) {
     
     <div style="margin-top: 32px; display: flex; gap: 15px; flex-wrap:wrap;">
       ${proj.github && proj.github !== '#' ? `<a href="${proj.github}" target="_blank" class="btn-primary">View GitHub</a>` : ''}
-      ${proj.figma && proj.figma !== '#' ? `<a href="${proj.figma}" target="_blank" class="btn-primary" style="background:var(--accent2,#a259ff)">✦ View Figma</a>` : ''}
       ${proj.demo && proj.demo !== '#' ? `<a href="${proj.demo}" target="_blank" class="btn-outline">Live Demo</a>` : ''}
     </div>
   `;
@@ -183,8 +183,9 @@ function initCarousel() {
   if (!track || !viewport) return;
 
   const DURATION  = 3200;
-  const GAP       = 19;    
-  const VISIBLE   = 3;     /* <-- Diubah menjadi 3 card saja yang terlihat */
+  const GAP       = 19;
+  // 1 card on mobile (<=768px), 3 on desktop
+  const VISIBLE   = window.innerWidth <= 768 ? 1 : 3;
   const SWIPE_MIN = 40;
 
   /* ── Build clones ─────────────────────────────────── */

@@ -8,7 +8,7 @@
     "longDesc": "SAFEST (Sexual Assault Free Environment with Smart Technology) is a mobile safety app for women built with Flutter and Firebase. Features include real-time live video streaming with location sharing, SOS button, fake call simulator, emergency siren, text-to-speech accessibility, and safety education modules. Led as Team Leader for the national PKM-KC programme and won the Gold Award at the CSIT-UPM International iFYP Exhibition & Competition 2026.",
     "tags": ["Flutter", "Dart", "Firebase", "Mobile"],
     "github": "https://github.com/alizzati/SAFEST",
-    "demo": "#",
+    "figma": "#https://s.id/SAFEST_prototype",
     "category": "Mobile App",
     "images": [
       "assets/img/safest-ss3.png",
