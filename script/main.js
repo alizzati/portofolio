@@ -16,7 +16,6 @@ window.addEventListener('scroll', () => {
   navEl.classList.toggle('scrolled', window.scrollY > 20);
 }, { passive: true });
 
-/* ---- ROLE CYCLING ---- */
 const roles = [
   'Full-Stack Developer',
   'Mobile App Developer',
@@ -159,6 +158,7 @@ function showProjectDetail(id) {
     
     <div style="margin-top: 32px; display: flex; gap: 15px; flex-wrap:wrap;">
       ${proj.github && proj.github !== '#' ? `<a href="${proj.github}" target="_blank" class="btn-primary">View GitHub</a>` : ''}
+      ${proj.figma && proj.figma !== '#' ? `<a href="${proj.figma}" target="_blank" class="btn-primary" style="background:var(--accent2,#a259ff)">✦ View Figma</a>` : ''}
       ${proj.demo && proj.demo !== '#' ? `<a href="${proj.demo}" target="_blank" class="btn-outline">Live Demo</a>` : ''}
     </div>
   `;

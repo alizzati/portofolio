@@ -33,7 +33,7 @@
   },
   {
     "id": "orbit-share",
-    "title": "Orbit Share (DewaDrive)",
+    "title": "Orbit Share",
     "shortDesc": "Full-featured cloud storage platform with file sharing, permissions, and analytics.",
     "emoji": "☁️",
     "thumbnail": "assets/img/orbit-thumbnail.png",
@@ -58,19 +58,28 @@
     "github": "https://github.com/alizzati/cryptography",
     "demo": "#",
     "category": "Web App",
-    "images": []
+    "images": [
+      "assets/img/crypto-ss1.png",
+      "assets/img/crypto-ss2.png",
+      "assets/img/crypto-ss3.png",
+      "assets/img/crypto-ss4.png"
+
+    ]
   },
   {
     "id": "university-website",
     "title": "Student Enrollment System",
     "shortDesc": "Full-stack university portal with course enrollment, payments, and timetable.",
     "emoji": "🎓",
-    "thumbnail": "",
+    "thumbnail": "assets/img/universityweb-thumbnail.png",
     "longDesc": "A database-driven university student portal built with ASP.NET (C#) and Microsoft SQL Server as a group project at INTI International University. Features include secure session-based authentication, course enrollment and add/drop with history tracking, personalised timetable viewer, online payment with invoice generation, teaching evaluation, enquiry system, and full profile management. Built with a 3-tier architecture: HTML/CSS/JS frontend, ASP.NET business logic, and SQL Server data layer.",
     "tags": ["ASP.NET", "C#", "SQL Server", "Web App"],
     "github": "https://github.com/alizzati/universityWebsite",
     "demo": "#",
     "category": "Web App",
-    "images": []
+    "images": [
+      "assets/img/universityweb-ss1.png",
+      "assets/img/universityweb-ss2.png"
+    ]
   }
 ]
