@@ -99,8 +99,14 @@
       </div>
       <div class="about-grid reveal">
         <div class="about-photo-wrap">
-          <div class="about-photo">
-            🌸
+          <div class="about-collage" id="aboutCollage">
+            <!-- Foto diri di tengah -->
+            <img
+              src="assets/img/izzati.png"
+              alt="Nur Aliza Izzati"
+              class="collage-self"
+            />
+            <!-- Tag GPA -->
             <div class="about-tag">
               <strong>3.96</strong>Cumulative GPA
             </div>
@@ -288,5 +294,133 @@
   </footer>
 
   <script src="script/main.js"></script>
+
+  <!-- ── ABOUT COLLAGE SCRIPT ── -->
+  <script>
+  (function initCollage() {
+    // ── Isi dengan path 15 foto kamu ──────────────────────────
+    const COLLAGE_IMAGES = [
+      'assets/img/collage/photo1.jpg',
+      'assets/img/collage/photo2.jpg',
+      'assets/img/collage/photo3.jpg',
+      'assets/img/collage/photo4.jpg',
+      'assets/img/collage/photo5.jpg',
+      'assets/img/collage/photo6.jpg',
+      'assets/img/collage/photo7.jpg',
+      'assets/img/collage/photo8.jpg',
+      'assets/img/collage/photo9.jpg',
+      'assets/img/collage/photo10.jpg',
+      'assets/img/collage/photo11.jpg',
+      'assets/img/collage/photo12.jpg',
+      'assets/img/collage/photo13.jpg',
+      'assets/img/collage/photo14.jpg',
+      'assets/img/collage/photo15.jpg',
+    ];
+    // ─────────────────────────────────────────────────────────
+
+    // Ukuran (% dari kotak): campuran landscape & portrait
+    const SIZES = [
+      { w: 38, h: 26 }, { w: 26, h: 36 }, { w: 34, h: 24 },
+      { w: 28, h: 38 }, { w: 36, h: 25 }, { w: 25, h: 34 },
+      { w: 32, h: 22 }, { w: 24, h: 33 }, { w: 37, h: 26 },
+      { w: 27, h: 37 }, { w: 33, h: 23 }, { w: 26, h: 35 },
+      { w: 35, h: 24 }, { w: 23, h: 32 }, { w: 34, h: 23 },
+    ];
+
+    // Zona tengah yang dijaga kosong untuk foto diri
+    // x: 29%–71%, y: 22%–78%
+    function overlapsCenter(x, y, w, h) {
+      return !(x + w < 29 || x > 71 || y + h < 22 || y > 78);
+    }
+
+    const placed = [];
+    function overlapsPlaced(x, y, w, h) {
+      for (const p of placed) {
+        const ox = x < p.x + p.w - 3 && x + w > p.x + 3;
+        const oy = y < p.y + p.h - 3 && y + h > p.y + 3;
+        if (ox && oy) return true;
+      }
+      return false;
+    }
+
+    function findPos(w, h) {
+      // Coba di 4 sudut & tepi dulu (zona yang paling sering kosong)
+      const zones = [
+        // Kiri atas
+        () => ({ x: rand(0, 28),       y: rand(0, 22) }),
+        // Kanan atas
+        () => ({ x: rand(72 - w, 92),  y: rand(0, 22) }),
+        // Kiri bawah
+        () => ({ x: rand(0, 28),       y: rand(78 - h, 92) }),
+        // Kanan bawah
+        () => ({ x: rand(72 - w, 92),  y: rand(78 - h, 92) }),
+        // Tepi kiri tengah
+        () => ({ x: rand(0, 18),       y: rand(22, 78 - h) }),
+        // Tepi kanan tengah
+        () => ({ x: rand(76, 94 - w),  y: rand(22, 78 - h) }),
+        // Atas tengah
+        () => ({ x: rand(29, 71 - w),  y: rand(0, 16) }),
+        // Bawah tengah
+        () => ({ x: rand(29, 71 - w),  y: rand(80, 94 - h) }),
+        // Random total
+        () => ({ x: rand(0, 92 - w),   y: rand(0, 92 - h) }),
+      ];
+
+      for (let attempt = 0; attempt < 120; attempt++) {
+        const zone = zones[Math.floor(Math.random() * zones.length)];
+        const { x, y } = zone();
+        if (!overlapsCenter(x, y, w, h) && !overlapsPlaced(x, y, w, h)) {
+          return { x, y };
+        }
+      }
+      return null;
+    }
+
+    function rand(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    function build() {
+      const box = document.getElementById('aboutCollage');
+      if (!box) return;
+
+      COLLAGE_IMAGES.forEach((src, i) => {
+        const size = SIZES[i % SIZES.length];
+        const pos  = findPos(size.w, size.h);
+        if (!pos) return;
+
+        placed.push({ ...pos, w: size.w, h: size.h });
+
+        const rot = (Math.random() * 18 - 9).toFixed(1);
+        const z   = 5 + (i % 12);
+
+        const img = document.createElement('img');
+        img.src       = src;
+        img.alt       = '';
+        img.className = 'collage-img';
+        img.style.cssText = `
+          left: ${pos.x}%; top: ${pos.y}%;
+          width: ${size.w}%; height: ${size.h}%;
+          transform: rotate(${rot}deg);
+          z-index: ${z};
+        `;
+        // Restore rotasi saat mouse leave
+        img.addEventListener('mouseleave', () => {
+          img.style.transform = `rotate(${rot}deg)`;
+          img.style.zIndex = z;
+        });
+
+        // Insert sebelum self foto & tag agar tidak menimpa keduanya
+        box.insertBefore(img, box.firstChild);
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', build);
+    } else {
+      build();
+    }
+  })();
+  </script>
 </body>
 </html>
