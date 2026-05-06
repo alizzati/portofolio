@@ -860,14 +860,13 @@ footer {
   }
 }
 
-/* ---- PROJECT DETAIL OVERLAY ---- */
 .detail-overlay {
   position: fixed;
-  top: 0; left: 0;
+  inset: 0;
   width: 100%; height: 100%;
   background: rgba(14, 12, 26, 0.98); /* Lavender dark mist style */
   z-index: 10000;
-  display: none; /* Default tersembunyi */
+  display: none; 
   justify-content: center;
   align-items: center;
   padding: 20px;
