@@ -484,24 +484,34 @@ section {
 /* Center self photo */
 .collage-self {
   position: absolute;
-  width: 38%;
-  aspect-ratio: 3/4;
+  width: 26%; /* Ukuran diperkecil (sebelumnya 38%) */
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 30;
-  border-radius: 80px 80px 60px 60px;
-  object-fit: cover;
-  object-position: top center;
-  border: 3px solid var(--accent);
-  box-shadow: 0 8px 32px rgba(99,75,177,0.4);
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
-}
-.collage-self:hover {
-  transform: translate(-50%, -50%) scale(1.06);
-  box-shadow: 0 16px 48px rgba(99,75,177,0.6);
+  
+  /* Karena background transparan, hilangkan border dan gunakan drop-shadow */
+  filter: drop-shadow(0 12px 24px rgba(99,75,177,0.4));
+  transition: transform 0.35s ease, filter 0.35s ease;
+  object-fit: contain; /* Memastikan gambar PNG tidak terpotong */
 }
 
+.collage-self:hover {
+  transform: translate(-50%, -50%) scale(1.08);
+  filter: drop-shadow(0 16px 40px rgba(99,75,177,0.7));
+}
+
+/* Sedikit penyesuaian untuk gambar background agar tidak ada gap */
+.collage-img {
+  position: absolute;
+  border-radius: 8px;
+  border: none; /* Dihilangkan agar lebih menyatu */
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
+  will-change: transform;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3); /* Bayangan lebih gelap untuk kedalaman */
+}
 .about-photo-deco {
   position: absolute; bottom: -20px; right: -20px;
   width: 80%; height: 80%;
