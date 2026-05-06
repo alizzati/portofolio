@@ -4,46 +4,55 @@
     "title": "SAFEST Mobile App",
     "shortDesc": "Award-winning personal safety app for women with real-time emergency features.",
     "emoji": "🛡️",
-    "thumbnail": "",
+    "thumbnail": "assets/img/safest-thumbnail.png",
     "longDesc": "SAFEST (Sexual Assault Free Environment with Smart Technology) is a mobile safety app for women built with Flutter and Firebase. Features include real-time live video streaming with location sharing, SOS button, fake call simulator, emergency siren, text-to-speech accessibility, and safety education modules. Led as Team Leader for the national PKM-KC programme and won the Gold Award at the CSIT-UPM International iFYP Exhibition & Competition 2026.",
     "tags": ["Flutter", "Dart", "Firebase", "Mobile"],
     "github": "https://github.com/alizzati/SAFEST",
     "demo": "#",
     "category": "Mobile App",
-    "images": []
+    "images": [
+      "assets/img/safest-ss3.png",
+      "assets/img/safest-ss1.png"
+    ]
   },
   {
     "id": "animverse",
     "title": "AnimVerse",
     "shortDesc": "Anime discovery app with Firebase auth, Jikan API, and cloud favourites.",
     "emoji": "🎌",
-    "thumbnail": "",
+    "thumbnail": "assets/img/animverse-thumbnail.png",
     "longDesc": "AnimVerse is a Flutter mobile app that lets users explore thousands of anime titles, search by title, filter by genre, and save favourites to a personal cloud list. Integrates Jikan API (MyAnimeList) for anime data and Firebase for authentication and real-time Firestore storage. Features include Google Sign-In, paginated browsing, real-time favourites with user-scoped security rules, and full profile management.",
     "tags": ["Flutter", "Dart", "Firebase", "Jikan API"],
     "github": "https://github.com/alizzati/AnimVerse_Izzati",
     "demo": "https://youtu.be/drBOQq122Xk",
     "category": "Mobile App",
-    "images": []
+    "images": [
+      "assets/img/animverse-ss1.png",
+      "assets/img/animverse-ss2.png"
+    ]
   },
   {
     "id": "orbit-share",
     "title": "Orbit Share (DewaDrive)",
     "shortDesc": "Full-featured cloud storage platform with file sharing, permissions, and analytics.",
     "emoji": "☁️",
-    "thumbnail": "",
-    "longDesc": "DewaDrive is a mini Google Drive built with PHP and MySQL. Features include user authentication, folder and file management, multi-file upload, file preview (PDF, Office, XLSX), public and private sharing with per-folder permissions, role-based access (viewer/editor) with inheritance, S3-compatible storage, quota management, admin audit logs, analytics dashboard, and email notifications with daily digest.",
+    "thumbnail": "assets/img/orbit-thumbnail.png",
+    "longDesc": "DewaDrive is a mini Google Drive built with PHP and MySQL. Features include user authentication, folder and file management, multi-file upload, file preview (PDF, Office, XLSX), public and private sharing with per-folder permissions, role-based access (viewer/editor) with inheritance, S3-compatible storage, quota management, admin audit logs, analytics dashboard, and email notifications with daily digest. To access the website, please visit here: https://s.id/aplikasi_orbitshare",
     "tags": ["PHP", "MySQL", "AWS S3", "Web App"],
     "github": "https://github.com/alizzati/Orbit-Share",
-    "demo": "#",
+    "demo": "#https://www.youtube.com/watch?v=kiq25UYWQ8E",
     "category": "Web App",
-    "images": []
+    "images": [
+      "assets/img/orbit-ss1.png",
+      "assets/img/orbit-ss2.png"
+    ]
   },
   {
     "id": "cryptography",
     "title": "Image Encryption Website",
     "shortDesc": "Web app for encrypting and decrypting images using cryptography algorithms.",
     "emoji": "🔐",
-    "thumbnail": "",
+    "thumbnail": "assets/img/crypto-thumbnail.png",
     "longDesc": "A cryptography-focused web application that allows users to encrypt and decrypt image files directly in the browser. Demonstrates practical implementation of cryptographic principles in a web environment, with a focus on secure data handling and clean user interface. Built with PHP and JavaScript.",
     "tags": ["PHP", "JavaScript", "Cryptography", "Web"],
     "github": "https://github.com/alizzati/cryptography",
