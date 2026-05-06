@@ -167,18 +167,11 @@ function showProjectDetail(id) {
   document.body.style.overflow = 'hidden';
 }
 
-// Tutup dengan tombol X
-document.getElementById('closeDetail').addEventListener('click', closeDetail);
-
-// Tutup dengan klik di luar konten (pada overlay/backdrop)
-document.getElementById('projectDetail').addEventListener('click', function(e) {
-  if (e.target === this) closeDetail();
-});
-
-function closeDetail() {
+// Event untuk menutup
+document.getElementById('closeDetail').addEventListener('click', () => {
   document.getElementById('projectDetail').style.display = 'none';
   document.body.style.overflow = 'auto';
-}
+});
 
 // Ganti pemanggilan IIFE Carousel lama dengan ini:
 loadProjects();
@@ -190,8 +183,9 @@ function initCarousel() {
   if (!track || !viewport) return;
 
   const DURATION  = 3200;
-  const GAP       = 19;    
-  const VISIBLE   = 3;     /* <-- Diubah menjadi 3 card saja yang terlihat */
+  const GAP       = 19;
+  // 1 card on mobile (<=768px), 3 on desktop
+  const VISIBLE   = window.innerWidth <= 768 ? 1 : 3;
   const SWIPE_MIN = 40;
 
   /* ── Build clones ─────────────────────────────────── */

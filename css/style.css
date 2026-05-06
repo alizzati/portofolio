@@ -141,7 +141,7 @@ main { position: relative; z-index: 1; }
    HERO SECTION
    ============================================================ */
 .hero {
-  min-height: 100vh;
+  height: 100vh;
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
@@ -701,24 +701,23 @@ footer {
   .hero { grid-template-columns: 1fr; }
   .hero-photo-col { display: none; }
 }
+
 @media (max-width: 768px) {
+  /* Nav */
   nav { padding: 1rem 1.5rem; }
   nav.scrolled { padding: 0.75rem 1.5rem; }
   .nav-links { display: none; }
+
+  /* Sections */
   section { padding: 3.5rem 1.25rem; }
+  .hero { padding: 0 1.25rem; }
 
-  /* Hero: shrink to content height, remove gap */
-  .hero {
-    min-height: unset;
-    height: auto;
-    padding: 5.5rem 1.25rem 2.5rem;
-    align-items: flex-start;
-  }
-
-  .carousel-outer { margin: 0 -1.25rem; padding: 1.5rem 1.25rem 2rem; }
-  .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-  .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
-  footer { flex-direction: column; gap: 1rem; text-align: center; }
+  /* Hero text tighter on mobile */
+  .hero-tagline { font-size: 0.92rem; }
+  .hero-bottom { gap: 1rem; }
+  .hero-meta { gap: 0.9rem; }
+  .hero-socials { margin-left: 0; }
+  .hero-scroll-hint { display: none; }
 
   /* Work header stacks */
   .work-header {
@@ -728,29 +727,85 @@ footer {
     margin-bottom: 2rem;
   }
 
-  /* 1 card carousel scaling */
-  .carousel-track .card { transform: scale(0.88); opacity: 0.35; }
-  .carousel-track .card.is-near { transform: scale(0.92); opacity: 0.55; }
-  .carousel-track .card.is-active { transform: scale(1); opacity: 1; box-shadow: 0 12px 40px var(--shadow); }
+  /* ── Carousel: 1 card on mobile ── */
+  .carousel-outer {
+    margin: 0 -1.25rem;
+    padding: 1.5rem 1.25rem 2rem;
+  }
 
-  /* Card internals */
+  /* Active card takes full viewport width minus padding */
+  .carousel-track .card {
+    transform: scale(0.88);
+    opacity: 0.35;
+  }
+  .carousel-track .card.is-near {
+    transform: scale(0.92);
+    opacity: 0.55;
+  }
+  .carousel-track .card.is-active {
+    transform: scale(1);
+    opacity: 1;
+    box-shadow: 0 12px 40px var(--shadow);
+  }
+
+  /* Card image taller on mobile for better visual */
   .card-img { height: 160px; }
   .card-content { padding: 14px 16px 18px; }
   .card-content h3 { font-size: 1.1rem; }
   .card-content p { font-size: 0.8rem; }
 
-  /* Detail popup full-screen friendly */
-  .detail-content { padding: 28px 20px; }
+  /* About */
+  .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .about-photo-wrap { max-width: 280px; margin: 0 auto; }
+
+  /* Achievements strip: 2 per row */
+  .achievements-strip { flex-wrap: wrap; }
+  .ach-item { flex: 1 1 calc(50% - 1rem); }
+
+  /* Services */
+  .services-grid { grid-template-columns: 1fr; }
+
+  /* Contact */
+  .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+
+  /* Footer */
+  footer {
+    flex-direction: column;
+    gap: 0.75rem;
+    text-align: center;
+    padding: 1.5rem 1.25rem;
+  }
 }
+
 @media (max-width: 480px) {
+  /* Even tighter on very small phones */
   .hero-name { font-size: clamp(1.5rem, 6vw, 2rem); }
-  .hero-iam-label, .role-item { font-size: clamp(1.5rem, 6vw, 2rem); }
-  .btn-primary, .btn-outline { padding: 0.75rem 1.4rem; font-size: 0.82rem; }
+  .hero-iam-label,
+  .role-item { font-size: clamp(1.5rem, 6vw, 2rem); }
+
+  .btn-primary, .btn-outline {
+    padding: 0.75rem 1.4rem;
+    font-size: 0.82rem;
+  }
+
   .hero-cta { gap: 0.75rem; }
+
+  /* Stats row: smaller gap */
   .hero-stat strong { font-size: 1.2rem; }
   .hero-stat span { font-size: 0.68rem; }
+
+  /* Section titles */
   .section-title { font-size: clamp(1.75rem, 7vw, 2.4rem); }
-  .detail-content { padding: 24px 16px; max-height: 92vh; border-radius: 12px; }
+
+  /* Achievements: 1 per row on very small */
+  .ach-item { flex: 1 1 100%; }
+
+  /* Detail overlay full screen */
+  .detail-content {
+    padding: 24px 20px;
+    max-height: 92vh;
+    border-radius: 12px;
+  }
 }
 
 /* ---- PROJECT DETAIL OVERLAY ---- */
@@ -758,15 +813,13 @@ footer {
   position: fixed;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  background: rgba(14, 12, 26, 0.85);
+  background: rgba(14, 12, 26, 0.98); /* Lavender dark mist style */
   z-index: 10000;
-  display: none;
+  display: none; /* Default tersembunyi */
   justify-content: center;
   align-items: center;
   padding: 20px;
   backdrop-filter: blur(10px);
-  /* Fix: ensure flex centering works */
-  box-sizing: border-box;
 }
 
 .detail-content {
@@ -780,9 +833,6 @@ footer {
   position: relative;
   border: 1px solid var(--border);
   box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-  /* Ensure it doesn't stretch full height */
-  margin: auto;
-  flex-shrink: 0;
 }
 
 .close-btn {
