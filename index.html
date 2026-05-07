@@ -99,14 +99,8 @@
       </div>
       <div class="about-grid reveal">
         <div class="about-photo-wrap">
-          <div class="about-collage" id="aboutCollage">
-            <!-- Foto diri di tengah -->
-            <img
-              src="assets/img/izzati.png"
-              alt="Nur Aliza Izzati"
-              class="collage-self"
-            />
-            <!-- Tag GPA -->
+          <div class="about-collect" id="aboutCollect">
+            <img src="assets/img/izzati.png" alt="Nur Aliza Izzati" class="collect-self" />
             <div class="about-tag">
               <strong>3.96</strong>Cumulative GPA
             </div>
@@ -114,9 +108,9 @@
           <div class="about-photo-deco"></div>
         </div>
         <div class="about-text">
-          <p>Hi! I'm Aliza — a 3rd-year Computer Science student at Universitas Sumatera Utara, currently on a fully-funded student exchange at INTI International University, Malaysia.</p>
-          <p>I'm a <strong>Gold Award Winner</strong> at the CSIT-UPM International iFYP Exhibition & Competition, where I co-engineered a mobile safety app for women. I thrive across the full stack: from crafting elegant UIs and building solid back-ends to developing mobile apps and game experiences.</p>
-          <p>When I'm not coding, you'll find me exploring design trends, leading events, or mentoring peers in tech communities.</p>
+          <p>Hi! I'm Aliza — a Computer Science student at Universitas Sumatera Utara, Indonesia, currently on a student exchange at INTI International University, Malaysia. I work across the full stack: web, mobile, UI/UX, and a bit of game development on the side.</p>
+          <p>I care about building things that actually work well for the people using them — not just things that look good in a demo. Every project I take on starts with understanding the problem first, then designing and building from there.</p>
+          <p>Outside of coding, I stay involved in campus communities, help peers with tech, and keep learning — because there's always something new worth understanding.</p>
           <div class="skills-pills">
             <span class="pill">HTML / CSS / JS</span>
             <span class="pill">PHP</span>
@@ -294,63 +288,5 @@
 
   <script src="script/main.js"></script>
 
-  <!-- ── ABOUT COLLAGE SCRIPT ── -->
-  <script>
-    (function initCollage() {
-      const COLLAGE_IMAGES = Array.from({length: 15}, (_, i) => `assets/img/collect/photo${i + 1}.jpg`);
-
-      const positions = [
-        { x: -10, y: -10 }, { x: 25, y: -15 }, { x: 55, y: -10 }, { x: 80, y: -15 }, // Baris Atas
-        { x: -10, y: 70 },  { x: 25, y: 75 },  { x: 55, y: 70 },  { x: 80, y: 75 },  // Baris Bawah
-        { x: -15, y: 20 },  { x: -10, y: 45 },                                       // Sisi Kiri
-        { x: 75, y: 20 },   { x: 80, y: 45 },                                        // Sisi Kanan
-        { x: 15, y: 15 },   { x: 60, y: 15 },  { x: 35, y: 60 }                      // Pengisi Tengah (Tertutup foto profil)
-      ];
-
-      function build() {
-        const box = document.getElementById('aboutCollage');
-        if (!box) return;
-
-        COLLAGE_IMAGES.forEach((src, i) => {
-          // Ambil titik awal dan beri sedikit variasi acak (+/- 5%)
-          const baseX = positions[i].x + (Math.random() * 10 - 5);
-          const baseY = positions[i].y + (Math.random() * 10 - 5);
-
-          // Buat ukuran foto cukup besar (35% - 50%) agar saling menumpuk dan menutup spasi
-          const sizeW = 35 + Math.random() * 15;
-          const sizeH = 35 + Math.random() * 15;
-
-          const rot = (Math.random() * 30 - 15).toFixed(1); // Rotasi -15deg hingga 15deg
-          const z = 5 + i;
-
-          const img = document.createElement('img');
-          img.src = src;
-          img.alt = 'Collage background';
-          img.className = 'collage-img';
-          img.style.cssText = `
-            left: ${baseX}%; top: ${baseY}%;
-            width: ${sizeW}%; height: ${sizeH}%;
-            transform: rotate(${rot}deg);
-            z-index: ${z};
-          `;
-
-          // Kembalikan rotasi saat mouse tidak lagi hover
-          img.addEventListener('mouseleave', () => {
-            img.style.transform = `rotate(${rot}deg)`;
-            img.style.zIndex = z;
-          });
-
-          // Insert sebelum gambar profil utama
-          box.insertBefore(img, box.firstChild);
-        });
-      }
-
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', build);
-      } else {
-        build();
-      }
-    })();
-  </script>
 </body>
 </html>

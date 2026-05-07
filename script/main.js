@@ -380,3 +380,39 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.12 });
 
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+function initImageCollect() {
+  const box = document.getElementById('aboutCollect');
+  if (!box) return;
+
+  box.innerHTML = '';
+
+  // Menggunakan 13 foto agar mencapai baris ke-5
+  const IMAGES = Array.from({length: 12}, (_, i) => `assets/img/collect/photo${i+1}.jpg`);
+
+  IMAGES.forEach((src) => {
+    const img = document.createElement('img');
+    img.src = src;
+    img.className = 'collect-img';
+    img.onclick = () => openPhotoModal(src);
+    box.appendChild(img);
+  });
+
+  // Tambahkan Foto Profil
+  const selfImg = document.createElement('img');
+  selfImg.src = 'assets/img/izzati.png';
+  selfImg.className = 'collect-self-main';
+  // Optional: Klik foto profil untuk sesuatu atau biarkan saja
+  box.appendChild(selfImg);
+}
+
+/* Modal tetep sama seperti sebelumnya */
+function openPhotoModal(src) {
+  const modal = document.createElement('div');
+  modal.className = 'photo-modal';
+  modal.innerHTML = `<img src="${src}" alt="Full View">`;
+  modal.onclick = () => modal.remove();
+  document.body.appendChild(modal);
+}
+
+document.addEventListener('DOMContentLoaded', initImageCollect);

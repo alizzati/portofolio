@@ -452,66 +452,99 @@ section {
 }
 .about-photo-wrap { position: relative; }
 
-/* ── Photo Collage Box ── */
-.about-collage {
+.about-collect {
   width: 100%;
   aspect-ratio: 3/4;
-  border-radius: 12px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  /* PAKSA 6 baris membagi rata tinggi box */
+  grid-template-rows: repeat(5, 1fr); 
+  gap: 8px; /* Jarak antar foto */
+  padding: 10px;
+  overflow: hidden;
   background: var(--surface);
+  border-radius: 16px;
   border: 1px solid var(--border);
   position: relative;
-  overflow: hidden;
 }
 
-/* Each scattered image */
-.collage-img {
-  position: absolute;
-  border-radius: 6px;
-  border: 2px solid rgba(255,255,255,0.18);
+/* Style Item Foto */
+.collect-img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  border-radius: 4px;
   cursor: pointer;
-  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
-              box-shadow 0.35s ease;
-  will-change: transform;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.22);
-}
-.collage-img:hover {
-  transform: scale(1.18) rotate(0deg) !important;
-  z-index: 50 !important;
-  box-shadow: 0 12px 40px rgba(0,0,0,0.42);
+  transition: transform 0.2s ease, filter 0,2 ease;
 }
 
-/* Center self photo */
-.collage-self {
+.collect-img:hover {
+  filter: brightness(1.1);
+  transform: scale(0.98);
+  z-index: 10;
+}
+
+.collect-img:nth-child(1), .collect-img:nth-child(2) { grid-column: span 3; }
+/* Baris 2 */
+.collect-img:nth-child(3), .collect-img:nth-child(4), .collect-img:nth-child(5) { grid-column: span 2; }
+/* Baris 3 */
+.collect-img:nth-child(6), .collect-img:nth-child(7) { grid-column: span 3; }
+/* Baris 4 */
+.collect-img:nth-child(8), .collect-img:nth-child(9), .collect-img:nth-child(10) { grid-column: span 2; }
+/* Baris 5 */
+.collect-img:nth-child(11), .collect-img:nth-child(12) { grid-column: span 3; }
+
+.collect-self-main {
   position: absolute;
-  width: 26%; /* Ukuran diperkecil (sebelumnya 38%) */
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 30;
-  
-  /* Karena background transparan, hilangkan border dan gunakan drop-shadow */
-  filter: drop-shadow(0 12px 24px rgba(99,75,177,0.4));
-  transition: transform 0.35s ease, filter 0.35s ease;
-  object-fit: contain; /* Memastikan gambar PNG tidak terpotong */
+  width: 32%; /* Ukuran lebih proporsional agar tidak 'mencekik' box */
+  z-index: 100;
+  border-radius: 12px;
+  filter: drop-shadow(0 0 20px var(--accent));
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.collage-self:hover {
-  transform: translate(-50%, -50%) scale(1.08);
-  filter: drop-shadow(0 16px 40px rgba(99,75,177,0.7));
-}
-
-/* Sedikit penyesuaian untuk gambar background agar tidak ada gap */
-.collage-img {
-  position: absolute;
-  border-radius: 8px;
-  border: none; /* Dihilangkan agar lebih menyatu */
-  object-fit: cover;
+.collect-self-main:hover {
+  width: 38%; /* Membesar sedikit */
+  filter: drop-shadow(0 0 20px var(--accent-lt));
   cursor: pointer;
-  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
-  will-change: transform;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.3); /* Bayangan lebih gelap untuk kedalaman */
 }
+
+/* Overlay Modal untuk Rasio Asli */
+.photo-modal {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  cursor: zoom-out;
+}
+
+.photo-modal img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+@media (max-width: 768px) {
+  .about-collect {
+    height: 350px; /* Lebih pendek di layar kecil agar tidak menutupi teks */
+    gap: 4px;
+    padding: 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .collect-self-main {
+    width: 40%; /* Sedikit lebih besar di HP agar terlihat jelas */
+  }
+}
+
 .about-photo-deco {
   position: absolute; bottom: -20px; right: -20px;
   width: 80%; height: 80%;
@@ -659,10 +692,15 @@ section {
   border-bottom: 1px solid var(--border2);
 }
 .services-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1px; border: 1px solid var(--border2);
-  border-radius: 6px; overflow: hidden; margin-top: 3rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Desktop: 3 kolom */
+  gap: 1px;
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-top: 3rem;
 }
+
 .service-item {
   padding: 2rem; background: var(--bg);
   transition: background 0.25s; position: relative;
@@ -674,6 +712,28 @@ section {
   font-weight: 400; color: var(--text); margin-bottom: 0.5rem;
 }
 .service-desc { font-size: 0.85rem; color: var(--text-sec); line-height: 1.7; }
+
+/* Tablet: 2 kolom */
+@media (max-width: 900px) and (min-width: 541px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* HP: 1 kolom */
+@media (max-width: 540px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+    border-radius: 8px;
+  }
+  .service-item {
+    padding: 1.5rem 1.25rem;
+    border-bottom: 1px solid var(--border2);
+  }
+  .service-item:last-child {
+    border-bottom: none;
+  }
+}
 
 /* ---- CONTACT ---- */
 .contact-inner {
@@ -813,15 +873,15 @@ footer {
   /* About */
   .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
   .about-photo-wrap { max-width: 320px; margin: 0 auto; }
-  .about-collage { aspect-ratio: 4/5; }
-  .collage-self { width: 42%; }
+  .about-collect { aspect-ratio: 4/5; }
+  .collect-self { width: 42%; }
 
   /* Achievements strip: 2 per row */
   .achievements-strip { flex-wrap: wrap; }
   .ach-item { flex: 1 1 calc(50% - 1rem); }
 
-  /* Services */
-  .services-grid { grid-template-columns: 1fr; }
+  /* Services — handled by dedicated media query below (540px) */
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
 
   /* Contact */
   .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
@@ -858,9 +918,14 @@ footer {
   /* Achievements: 1 per row on very small */
   .ach-item { flex: 1 1 100%; }
 
-  /* Collage tighter */
-  .about-collage { aspect-ratio: 1/1; }
-  .collage-self { width: 46%; }
+  /* collect tighter */
+  .about-collect { aspect-ratio: 1/1; }
+  .collect-self { width: 46%; }
+
+  /* Services: pastikan 1 kolom pada semua layar sangat kecil */
+  .services-grid {
+    grid-template-columns: 1fr !important;
+  }
 
   /* Detail overlay full screen */
   .detail-content {
