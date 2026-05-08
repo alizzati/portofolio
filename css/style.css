@@ -111,7 +111,73 @@ nav.scrolled {
 .nav-links a:hover { color: var(--text); }
 .nav-links a:hover::after { transform: scaleX(1); }
 
-/* ---- THEME TOGGLE ---- */
+/* ---- HAMBURGER BUTTON ---- */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 36px; height: 36px;
+  background: none; border: none;
+  cursor: pointer; padding: 4px;
+  z-index: 200;
+  flex-shrink: 0;
+}
+.nav-hamburger span {
+  display: block;
+  width: 22px; height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease, width 0.3s ease;
+  transform-origin: center;
+}
+/* X state */
+.nav-hamburger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.is-open span:nth-child(2) { opacity: 0; width: 0; }
+.nav-hamburger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ---- MOBILE NAV DRAWER ---- */
+.nav-drawer {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  background: var(--nav-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  z-index: 150;
+  padding: 5rem 1.5rem 2rem;
+  transform: translateY(-110%);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.nav-drawer.is-open {
+  transform: translateY(0);
+}
+.nav-drawer ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.nav-drawer ul li {
+  border-bottom: 1px solid var(--border2);
+}
+.nav-drawer ul li:first-child {
+  border-top: 1px solid var(--border2);
+}
+.nav-drawer ul li a {
+  display: block;
+  padding: 1rem 0.25rem;
+  font-size: 0.9rem; font-weight: 400;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-sec); text-decoration: none;
+  transition: color 0.2s, padding-left 0.2s;
+}
+.nav-drawer ul li a:hover,
+.nav-drawer ul li a:active {
+  color: var(--accent);
+  padding-left: 0.75rem;
+}
 .theme-toggle {
   width: 44px; height: 24px;
   background: var(--surface2);
@@ -141,12 +207,13 @@ main { position: relative; z-index: 1; }
    HERO SECTION
    ============================================================ */
 .hero {
-  height: 100vh;
+  min-height: 100svh;
+  height: auto;
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
   gap: 3rem;
-  padding: 0 3rem;
+  padding: 7rem 3rem 3rem;
   max-width: 1100px; margin: 0 auto;
   position: relative;
 }
@@ -257,7 +324,7 @@ main { position: relative; z-index: 1; }
 
 /* Scroll hint */
 .hero-scroll-hint {
-  position: absolute; bottom: 2.5rem; left: 0;
+  margin-top: 2rem;
   display: flex; align-items: center; gap: 0.7rem;
   font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
   color: var(--muted);
@@ -270,86 +337,120 @@ main { position: relative; z-index: 1; }
   animation: scrollPulse 2s ease-in-out infinite;
 }
 
-/* ---- HERO PHOTO (right column) ---- */
 .hero-photo-col {
   position: relative;
-  width: 280px; flex-shrink: 0;
+  width: 320px;
+  height: 420px;
+  flex-shrink: 0;
   opacity: 0;
   animation: fadeUp 0.8s ease forwards 0.5s;
 }
 
-/* Decorative rings behind photo */
-.hero-photo-col::before,
+/* ── Glow blob di belakang foto ── */
+.hero-photo-bg {
+  position: absolute;
+  width: 280px; height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 40%, var(--accent-lt), var(--accent));
+  opacity: 0.18;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  filter: blur(40px);
+  z-index: 0;
+  animation: glowPulse 5s ease-in-out infinite alternate;
+}
+[data-theme="dark"] .hero-photo-bg { opacity: 0.28; }
+@keyframes glowPulse {
+  from { opacity: 0.15; transform: translateX(-50%) scale(1); }
+  to   { opacity: 0.28; transform: translateX(-50%) scale(1.12); }
+}
+
+/* ── Ring dekoratif tipis di belakang ── */
+.hero-photo-col::before {
+  content: '';
+  position: absolute;
+  width: 260px; height: 260px;
+  border-radius: 50%;
+  border: 1px dashed var(--accent);
+  opacity: 0.25;
+  bottom: 10px; left: 50%;
+  transform: translateX(-50%);
+  animation: spinSlow 25s linear infinite;
+  z-index: 0;
+}
 .hero-photo-col::after {
   content: '';
   position: absolute;
+  width: 220px; height: 220px;
   border-radius: 50%;
-  border: 1px solid var(--border);
-}
-.hero-photo-col::before {
-  width: 300px; height: 300px;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  animation: spinSlow 20s linear infinite;
-}
-.hero-photo-col::after {
-  width: 340px; height: 340px;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  animation: spinSlow 30s linear infinite reverse;
+  background: var(--surface2);
+  bottom: 30px; left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
 }
 @keyframes spinSlow {
-  from { transform: translate(-50%, -50%) rotate(0deg); }
-  to   { transform: translate(-50%, -50%) rotate(360deg); }
+  from { transform: translateX(-50%) rotate(0deg); }
+  to   { transform: translateX(-50%) rotate(360deg); }
 }
 
-/* Filled accent blob behind photo */
-.hero-photo-bg {
-  position: absolute;
-  width: 260px; height: 260px;
-  border-radius: 60% 40% 55% 45% / 45% 55% 45% 55%;
-  background: var(--surface2);
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  animation: morphBlob 8s ease-in-out infinite alternate;
-  z-index: 0;
-}
-@keyframes morphBlob {
-  from { border-radius: 60% 40% 55% 45% / 45% 55% 45% 55%; }
-  to   { border-radius: 40% 60% 45% 55% / 55% 45% 55% 45%; }
-}
-
-/* Small floating accents */
+/* ── Dot aksen mengambang ── */
 .hero-photo-dot {
   position: absolute;
   border-radius: 50%;
   background: var(--accent);
-  opacity: 0.5;
-  z-index: 0;
+  z-index: 3;
 }
-.hero-photo-dot:nth-child(1) { width: 10px; height: 10px; top: 8%; right: 10%; animation: floatDot 4s ease-in-out infinite alternate; }
-.hero-photo-dot:nth-child(2) { width: 6px; height: 6px; bottom: 14%; left: 8%; animation: floatDot 5s ease-in-out infinite alternate-reverse; }
-.hero-photo-dot:nth-child(3) { width: 14px; height: 14px; bottom: 20%; right: 5%; opacity: 0.25; animation: floatDot 6s ease-in-out infinite alternate; }
+.hero-photo-dot:nth-child(1) {
+  width: 10px; height: 10px;
+  top: 18%; right: 12%;
+  opacity: 0.7;
+  animation: floatDot 4s ease-in-out infinite alternate;
+}
+.hero-photo-dot:nth-child(2) {
+  width: 6px; height: 6px;
+  bottom: 22%; left: 10%;
+  opacity: 0.5;
+  animation: floatDot 5.5s ease-in-out infinite alternate-reverse;
+}
+.hero-photo-dot:nth-child(3) {
+  width: 14px; height: 14px;
+  top: 30%; left: 6%;
+  opacity: 0.2;
+  background: var(--accent-lt);
+  animation: floatDot 6s ease-in-out infinite alternate;
+}
 @keyframes floatDot {
   from { transform: translateY(0); }
-  to   { transform: translateY(-10px); }
+  to   { transform: translateY(-12px); }
 }
 
-/* Photo frame */
+/* ── Frame foto — memanfaatkan background transparan PNG ── */
 .hero-photo-frame {
-  position: relative; z-index: 1;
-  width: 240px; height: 300px;
-  margin: 0 auto;
-  border-radius: 120px 120px 80px 80px;
-  overflow: hidden;
-  border: 2px solid var(--border);
-  background: var(--surface);
-  display: flex; align-items: center; justify-content: center;
+  position: absolute;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
 }
+
 .hero-photo-frame img {
-  width: 100%; height: 100%;
-  object-fit: cover; object-position: top center;
+  width: 88%;
+  height: auto;
+  object-fit: contain;
+  object-position: bottom center;
+  filter: drop-shadow(0 -8px 30px rgba(99, 75, 177, 0.35))
+          drop-shadow(0 20px 40px rgba(0, 0, 0, 0.2));
+  transition: filter 0.4s ease, transform 0.4s ease;
 }
+.hero-photo-frame img:hover {
+  filter: drop-shadow(0 -8px 40px rgba(138, 116, 225, 0.55))
+          drop-shadow(0 20px 50px rgba(0, 0, 0, 0.25));
+  transform: translateY(-4px);
+}
+
 /* Placeholder shown when no img */
 .hero-photo-placeholder {
   display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
@@ -380,7 +481,7 @@ main { position: relative; z-index: 1; }
    ============================================================ */
 section {
   max-width: 1100px; margin: 0 auto;
-  padding: 5rem 3rem;
+  padding: 4rem 3rem;
 }
 .section-label {
   font-size: 0.75rem; font-weight: 500;
@@ -401,7 +502,7 @@ section {
   display: flex;
   align-items: center;
   gap: 0;
-  margin-top: 3.5rem;
+  margin-top: 2.5rem;
   background: var(--surface);
   border: 1px solid var(--border2);
   border-radius: 8px;
@@ -448,17 +549,17 @@ section {
 /* ---- ABOUT ---- */
 .about-grid {
   display: grid; grid-template-columns: 1fr 1.3fr;
-  gap: 5rem; align-items: center; margin-top: 3.5rem;
+  gap: 3.5rem; align-items: center; margin-top: 2.5rem;
 }
 .about-photo-wrap { position: relative; }
 
 .about-collect {
   width: 100%;
-  aspect-ratio: 3/4;
+  height: 420px;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   /* PAKSA 6 baris membagi rata tinggi box */
-  grid-template-rows: repeat(5, 1fr); 
+  grid-template-rows: repeat(4, 1fr); 
   gap: 8px; /* Jarak antar foto */
   padding: 10px;
   overflow: hidden;
@@ -571,14 +672,14 @@ section {
 /* ---- WORK ---- */
 .work-header {
   display: flex; justify-content: space-between; align-items: flex-end;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 
 /* Outer wrapper — section has overflow hidden, cards won't bleed outside */
 .carousel-outer {
   overflow: hidden;
   margin: 0 -3rem; /* bleed to section edges */
-  padding: 2.5rem 3rem 3rem;
+  padding: 2rem 3rem 2.5rem;
 }
 
 .carousel-viewport {
@@ -698,7 +799,7 @@ section {
   border: 1px solid var(--border2);
   border-radius: 6px;
   overflow: hidden;
-  margin-top: 3rem;
+  margin-top: 2rem;
 }
 
 .service-item {
@@ -738,7 +839,7 @@ section {
 /* ---- CONTACT ---- */
 .contact-inner {
   display: grid; grid-template-columns: 1fr 1fr;
-  gap: 5rem; align-items: start; margin-top: 3.5rem;
+  gap: 3.5rem; align-items: start; margin-top: 2.5rem;
 }
 .contact-form { display: flex; flex-direction: column; gap: 1rem; }
 .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
@@ -781,7 +882,7 @@ section {
 /* ---- FOOTER ---- */
 footer {
   border-top: 1px solid var(--border2);
-  padding: 2rem 3rem;
+  padding: 1.5rem 3rem;
   display: flex; justify-content: space-between; align-items: center;
   font-size: 0.82rem; color: var(--muted);
   position: relative; z-index: 1;
@@ -818,15 +919,30 @@ footer {
   .hero-photo-col { display: none; }
 }
 
+/* ── Tablet (600–900px) ─────────────────────────────── */
+@media (max-width: 900px) and (min-width: 601px) {
+  section { padding: 3.5rem 2rem; }
+  .hero {
+    padding: 5rem 2rem 3rem;
+    min-height: auto;
+    align-items: start;
+  }
+  .carousel-outer { margin: 0 -2rem; padding: 1.5rem 2rem 2rem; }
+  .about-grid { gap: 2.5rem; }
+  .contact-inner { gap: 2.5rem; }
+}
+
 @media (max-width: 768px) {
   /* Nav */
   nav { padding: 1rem 1.5rem; }
   nav.scrolled { padding: 0.75rem 1.5rem; }
   .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+  .nav-drawer { display: block; }
 
   /* Sections */
-  section { padding: 3.5rem 1.25rem; }
-  .hero { padding: 0 1.25rem; }
+  section { padding: 3rem 1.25rem; }
+  .hero { padding: 4.5rem 1.25rem 2.5rem; min-height: auto; align-items: start; }
 
   /* Hero text tighter on mobile */
   .hero-tagline { font-size: 0.92rem; }
@@ -840,13 +956,13 @@ footer {
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
   }
 
   /* ── Carousel: 1 card on mobile ── */
   .carousel-outer {
     margin: 0 -1.25rem;
-    padding: 1.5rem 1.25rem 2rem;
+    padding: 1.25rem 1.25rem 1.75rem;
   }
 
   /* Active card takes full viewport width minus padding */
@@ -871,7 +987,7 @@ footer {
   .card-content p { font-size: 0.8rem; }
 
   /* About */
-  .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .about-grid { grid-template-columns: 1fr; gap: 2rem; }
   .about-photo-wrap { max-width: 320px; margin: 0 auto; }
   .about-collect { aspect-ratio: 4/5; }
   .collect-self { width: 42%; }

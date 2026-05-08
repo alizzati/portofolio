@@ -67,6 +67,50 @@
     ]
   },
   {
+    "id": "safest-ui",
+    "title": "SAFEST UI/UX Design & Prototype",
+    "shortDesc": "High-fidelity UI/UX design focused on emergency accessibility and intuitive safety features.",
+    "emoji": "🎨",
+    "thumbnail": "assets/img/safestui-thumbnail.png",
+    "longDesc": "Designed a high-fidelity interactive prototype for SAFEST, focusing on 'Urgent Accessibility' for users in high-stress situations. The design prioritizes one-handed navigation, high-contrast visual cues, and a calming aesthetic to assist users during emergencies. Key design challenges included creating an intuitive flow for the Fake Call simulator and ensuring the SOS button is instantly reachable. Built using Figma, the project includes a comprehensive design system, user flow mapping, and interactive transitions to simulate real-world usage.",
+    "tags": ["Figma", "UI/UX Design", "Prototyping", "User Centric Design"],
+    "figma": "https://s.id/SAFEST_prototype",
+    "category": "UI/UX",
+    "images": [
+      "assets/img/safest-ss3.png",
+      "assets/img/safest-ss1.png"
+    ]
+  },
+  {
+    "id": "trash-warrior",
+    "title": "Trash Warrior: Eco-Adventure",
+    "shortDesc": "An educational 2D action game focused on environmental awareness and waste management.",
+    "emoji": "🎮",
+    "thumbnail": "assets/img/trashwarrior-thumbnail.png",
+    "longDesc": "Trash Warrior is an interactive game developed to promote environmental literacy through engaging gameplay. Players take on the role of a 'warrior' tasked with collecting and sorting different types of waste while navigating challenging levels. Built with a focus on smooth mechanics and educational impact, the game implements real-time collision detection, dynamic score systems, and progressive difficulty levels. This project demonstrates the integration of game logic with meaningful real-world themes to create an impactful user experience.",
+    "tags": ["Game Dev", "C#", "Godot", "2D", "Edu-game"],
+    "demo": "#https://youtu.be/fdqd1qwKS_8?si=iDFVgGBhzXkDfuph",
+    "category": "Game Dev",
+    "images": [
+      "assets/img/trashwarrior-thumbnail.png"
+    ]
+  },
+  {
+    "id": "temu-usaha",
+    "title": "TemuUsaha: Business Collaboration Platform",
+    "shortDesc": "A strategic networking platform connecting entrepreneurs with investors and business partners.",
+    "emoji": "🤝",
+    "thumbnail": "assets/img/temuusaha-thumbnail.png",
+    "longDesc": "TemuUsaha is a digital ecosystem designed to bridge the gap between SMEs (UMKM) and potential investors. The UI/UX focuses on professional credibility and seamless networking, featuring a sophisticated business matching system, investment dashboards, and collaborative workspaces. I designed the interface with a clean, trustworthy aesthetic to foster professional trust, while optimizing the user flow for partnership pitching and progress tracking. The project involved deep user research, information architecture planning, and high-fidelity prototyping to ensure a streamlined experience for both entrepreneurs and funders.",
+    "tags": ["Figma", "UI/UX Design", "Product Design", "B2B Platform"],
+    "figma": "https://www.figma.com/proto/vVdWEz2kcJYC4KNHVIJpin/Main-Project?node-id=13-168&t=yV8gNgUoEMIUgR9P-1",
+    "category": "UI/UX",
+    "images": [
+      "assets/img/temuusaha-ss1.png",
+      "assets/img/temuusaha-ss2.png"
+    ]
+  },
+  {
     "id": "university-website",
     "title": "Student Enrollment System",
     "shortDesc": "Full-stack university portal with course enrollment, payments, and timetable.",

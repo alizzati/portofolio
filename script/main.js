@@ -10,6 +10,34 @@ toggle.addEventListener('click', () => {
   localStorage.setItem('theme', next);
 });
 
+/* ---- HAMBURGER MENU ---- */
+const hamburger = document.getElementById('navHamburger');
+const drawer    = document.getElementById('navDrawer');
+
+hamburger.addEventListener('click', () => {
+  const isOpen = drawer.classList.toggle('is-open');
+  hamburger.classList.toggle('is-open', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+});
+
+// Tutup drawer saat link diklik
+document.querySelectorAll('.drawer-link').forEach(link => {
+  link.addEventListener('click', () => {
+    drawer.classList.remove('is-open');
+    hamburger.classList.remove('is-open');
+    document.body.style.overflow = '';
+  });
+});
+
+// Tutup drawer saat klik di luar
+document.addEventListener('click', e => {
+  if (!drawer.contains(e.target) && !hamburger.contains(e.target)) {
+    drawer.classList.remove('is-open');
+    hamburger.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+});
+
 /* ---- NAVBAR: transparent → solid on scroll ---- */
 const navEl = document.querySelector('nav');
 window.addEventListener('scroll', () => {
@@ -176,7 +204,15 @@ document.getElementById('closeDetail').addEventListener('click', () => {
 
 // Ganti pemanggilan IIFE Carousel lama dengan ini:
 loadProjects();
+
 /* ---- CAROUSEL ---- */
+function getVisibleCount() {
+  const w = window.innerWidth;
+  if (w <= 600) return 1;       // mobile
+  if (w <= 900) return 2;       // tablet
+  return 3;                     // desktop
+}
+
 function initCarousel() {
   const track    = document.getElementById('carouselTrack');
   const viewport = document.getElementById('carouselViewport');
@@ -185,11 +221,20 @@ function initCarousel() {
 
   const DURATION  = 3200;
   const GAP       = 19;
-  // 1 card on mobile (<=768px), 3 on desktop
-  const VISIBLE   = window.innerWidth <= 768 ? 1 : 3;
   const SWIPE_MIN = 40;
 
-  /* ── Build clones ─────────────────────────────────── */
+  // Simpan original cards (sebelum ada klon)
+  // Jika sudah pernah init, bersihkan klon dulu
+  const allCards = Array.from(track.children);
+  // Tandai original dengan data-attr saat pertama kali
+  allCards.forEach(c => { if (!c.dataset.orig) c.dataset.orig = 'true'; });
+
+  // Bersihkan track dari klon lama, sisakan hanya original
+  Array.from(track.children).forEach(c => {
+    if (!c.dataset.orig) c.remove();
+  });
+
+  let VISIBLE = getVisibleCount();
   const orig  = Array.from(track.children);
   const total = orig.length;
   const EXTRA = Math.max(total, Math.ceil(VISIBLE / 2) + 2);
@@ -197,10 +242,10 @@ function initCarousel() {
   for (let i = 0; i < EXTRA; i++) track.appendChild(orig[i % total].cloneNode(true));
   for (let i = 0; i < EXTRA; i++) track.prepend(orig[(total - 1 - (i % total))].cloneNode(true));
 
-  let active  = EXTRA;   
-  let locked  = false;
-  let paused  = false;
-  let autoH   = null;
+  let active     = EXTRA;
+  let locked     = false;
+  let paused     = false;
+  let autoH      = null;
   let dragDelta  = 0;
   let mouseDelta = 0;
 
@@ -226,29 +271,21 @@ function initCarousel() {
   }
 
   function refreshClasses() {
-    // Hitung "Index Asli" (0 sampai total-1)
     const realActiveIndex = ((active - EXTRA) % total + total) % total;
-
     Array.from(track.children).forEach((c, i) => {
-      // Hitung "Index Asli" untuk setiap kartu di dalam track
       const realCardIndex = ((i - EXTRA) % total + total) % total;
-      
-      // Hitung jarak antara kartu ini dengan kartu yang sedang aktif
-      // Kita pakai Math.min untuk mencari jarak terpendek dalam lingkaran looping
       const diff = Math.min(
         Math.abs(realCardIndex - realActiveIndex),
         Math.abs(realCardIndex - realActiveIndex + total),
         Math.abs(realCardIndex - realActiveIndex - total)
       );
-
-      // Berikan class berdasarkan jarak index aslinya
-      // Ini memastikan kartu klon di ujung sudah membesar sebelum kita teleport
       c.classList.toggle('is-active', diff === 0);
       c.classList.toggle('is-near',   diff === 1);
     });
   }
 
   /* ── Dots ─────────────────────────────────────────── */
+  dotsWrap.innerHTML = '';
   for (let i = 0; i < total; i++) {
     const d = document.createElement('div');
     d.className = 'carousel-dot';
@@ -272,25 +309,15 @@ function initCarousel() {
   track.addEventListener('transitionend', () => {
     locked = false;
     let changed = false;
-
-    if (active < EXTRA) { 
-      active += total; 
-      changed = true; 
-    }
-    else if (active >= EXTRA + total) { 
-      active -= total; 
-      changed = true; 
-    }
-
+    if (active < EXTRA)            { active += total; changed = true; }
+    else if (active >= EXTRA + total) { active -= total; changed = true; }
     if (changed) {
       track.style.transition = 'none';
       track.style.transform = `translateX(${calcX(active)}px)`;
-      
       refreshClasses();
     }
   });
 
-  // Helper untuk mencari index card terdekat saat scroll manual dilepas
   function getClosestIndex(currentTx) {
     const offset = (viewport.offsetWidth - cw()) / 2;
     const floatIndex = (offset - currentTx) / step();
@@ -326,7 +353,7 @@ function initCarousel() {
     dragDelta = 0; tDrag = true;
     track.style.transition = 'none';
   }, { passive: true });
-  
+
   viewport.addEventListener('touchmove', e => {
     if (!tDrag) return;
     const dx = e.touches[0].clientX - tx0;
@@ -335,12 +362,11 @@ function initCarousel() {
     dragDelta = dx;
     track.style.transform = `translateX(${calcX(active) + dx}px)`;
   }, { passive: true });
-  
+
   viewport.addEventListener('touchend', () => {
     if (!tDrag) return; tDrag = false;
-    // Cari index persis yang terdekat dari posisi jari dilepas
     const currentTx = calcX(active) + dragDelta;
-    goTo(getClosestIndex(currentTx)); 
+    goTo(getClosestIndex(currentTx));
     resetAuto();
     dragDelta = 0;
   });
@@ -359,7 +385,6 @@ function initCarousel() {
   window.addEventListener('mouseup', () => {
     if (!mDown) return;
     mDown = false;
-    // Cari index persis yang terdekat dari posisi kursor dilepas
     const currentTx = calcX(active) + mouseDelta;
     goTo(getClosestIndex(currentTx));
     resetAuto();
@@ -370,7 +395,22 @@ function initCarousel() {
   setWidths();
   move(active, false);
   startAuto();
-  window.addEventListener('resize', () => { setWidths(); move(active, false); });
+
+  /* ── Resize: re-init jika breakpoint berubah ──────── */
+  let lastVisible = VISIBLE;
+  window.addEventListener('resize', () => {
+    const newVisible = getVisibleCount();
+    if (newVisible !== lastVisible) {
+      // Breakpoint berubah → rebuild carousel sepenuhnya
+      lastVisible = newVisible;
+      clearInterval(autoH);
+      initCarousel();
+    } else {
+      // Breakpoint sama, hanya update lebar
+      setWidths();
+      move(active, false);
+    }
+  });
 };
 /* ---- SCROLL REVEAL ---- */
 const observer = new IntersectionObserver((entries) => {
@@ -388,7 +428,7 @@ function initImageCollect() {
   box.innerHTML = '';
 
   // Menggunakan 13 foto agar mencapai baris ke-5
-  const IMAGES = Array.from({length: 12}, (_, i) => `assets/img/collect/photo${i+1}.jpg`);
+  const IMAGES = Array.from({length: 12}, (_, i) => `assets/img/collect/photo${i+1}.png`);
 
   IMAGES.forEach((src) => {
     const img = document.createElement('img');

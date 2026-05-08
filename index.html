@@ -26,10 +26,25 @@
       <li><a href="#services">Services</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">
-      <div class="toggle-icons"><span>☀</span><span>☾</span></div>
-    </button>
+    <div style="display:flex;align-items:center;gap:0.75rem;">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">
+        <div class="toggle-icons"><span>☀</span><span>☾</span></div>
+      </button>
+      <button class="nav-hamburger" id="navHamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </nav>
+
+  <!-- Mobile Drawer (taruh tepat setelah </nav>) -->
+  <div class="nav-drawer" id="navDrawer">
+    <ul>
+      <li><a href="#about" class="drawer-link">About</a></li>
+      <li><a href="#work" class="drawer-link">Work</a></li>
+      <li><a href="#services" class="drawer-link">Services</a></li>
+      <li><a href="#contact" class="drawer-link">Contact</a></li>
+    </ul>
+  </div>
 
   <main>
 
@@ -55,12 +70,12 @@
         <div class="hero-bottom">
           <div class="hero-cta">
             <a href="#work" class="btn-primary">View My Work ✦</a>
-            <a href="#contact" class="btn-outline">Hire Me</a>
+            <a href="#contact" class="btn-outline">Hire Me</a> 
           </div>
           <div class="hero-meta">
             <div class="hero-stat"><strong>10+</strong><span>Skills</span></div>
             <div class="hero-stat-div"></div>
-            <div class="hero-stat"><strong>20+</strong><span>Projects</span></div>
+            <div class="hero-stat"><strong>8+</strong><span>Projects</span></div>
             <div class="hero-stat-div"></div>
             <div class="hero-stat"><strong>3.96</strong><span>GPA</span></div>
             <div class="hero-socials">
@@ -108,7 +123,7 @@
           <div class="about-photo-deco"></div>
         </div>
         <div class="about-text">
-          <p>Hi! I'm Aliza — a Computer Science student at Universitas Sumatera Utara, Indonesia, currently on a student exchange at INTI International University, Malaysia. I work across the full stack: web, mobile, UI/UX, and a bit of game development on the side.</p>
+          <p>Hi! I'm Izzati — a Computer Science student at Universitas Sumatera Utara, Indonesia, currently on a student exchange at INTI International University, Malaysia. I work across the full stack: web, mobile, UI/UX, and a bit of game development on the side.</p>
           <p>I care about building things that actually work well for the people using them — not just things that look good in a demo. Every project I take on starts with understanding the problem first, then designing and building from there.</p>
           <p>Outside of coding, I stay involved in campus communities, help peers with tech, and keep learning — because there's always something new worth understanding.</p>
           <div class="skills-pills">
