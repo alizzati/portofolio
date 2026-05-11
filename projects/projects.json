@@ -89,7 +89,7 @@
     "thumbnail": "assets/img/trashwarrior-thumbnail.png",
     "longDesc": "Trash Warrior is an interactive game developed to promote environmental literacy through engaging gameplay. Players take on the role of a 'warrior' tasked with collecting and sorting different types of waste while navigating challenging levels. Built with a focus on smooth mechanics and educational impact, the game implements real-time collision detection, dynamic score systems, and progressive difficulty levels. This project demonstrates the integration of game logic with meaningful real-world themes to create an impactful user experience.",
     "tags": ["Game Dev", "C#", "Godot", "2D", "Edu-game"],
-    "demo": "#https://youtu.be/fdqd1qwKS_8?si=iDFVgGBhzXkDfuph",
+    "demo": "https://youtu.be/fdqd1qwKS_8?si=iDFVgGBhzXkDfuph",
     "category": "Game Dev",
     "images": [
       "assets/img/trashwarrior-thumbnail.png"
